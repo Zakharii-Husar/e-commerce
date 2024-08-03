@@ -1,5 +1,4 @@
-# ecommers
-E-commers for teamup program (ComIt) 
+# e-commerce
 
 ## DB Initialization
 
