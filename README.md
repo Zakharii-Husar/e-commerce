@@ -14,7 +14,7 @@
 
 4. Create the user: 
 
-``CREATE USER ecommerce WITH PASSWORD 'amazon_password';``
+``CREATE USER ecommerce WITH PASSWORD 'ecommerce_password';``
 
 5. Grant privileges to the user on the database:
 
