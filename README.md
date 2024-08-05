@@ -1,4 +1,4 @@
-# e-commerce
+# ecommerce
 
 ## DB Initialization
 
@@ -10,27 +10,27 @@
 
 3. Create the database:
 
-``CREATE DATABASE e-commerce;``
+``CREATE DATABASE ecommerce;``
 
 4. Create the user: 
 
-``CREATE USER e-commerce WITH PASSWORD 'amazon_password';``
+``CREATE USER ecommerce WITH PASSWORD 'amazon_password';``
 
 5. Grant privileges to the user on the database:
 
-``GRANT ALL PRIVILEGES ON DATABASE e-commerce TO e-commerce;``
+``GRANT ALL PRIVILEGES ON DATABASE ecommerce TO ecommerce;``
 
 6. Connect to the new database:
 
-``/c e-commerce``
+``/c ecommerce``
 
 7. Grant schema usage and creation privileges to the user:
 
 ````
-GRANT USAGE ON SCHEMA public TO e-commerce;
-GRANT CREATE ON SCHEMA public TO e-commerce;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO e-commerce;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO e-commerce;
+GRANT USAGE ON SCHEMA public TO ecommerce;
+GRANT CREATE ON SCHEMA public TO ecommerce;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO ecommerce;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO ecommerce;
 ````
 
 8. Exit the psql prompt:
@@ -39,7 +39,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO e-commerce;
 
 9. Initialize the database (you must be in the project root directory to run the following command):
 
-`` psql -h localhost -U e-commerce -d e-commerce -f ./api/data/init_db.sql``
+`` psql -h localhost -U ecommerce -d ecommerce -f ./api/data/init_db.sql``
 
 ## Typespec
 
