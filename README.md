@@ -61,7 +61,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO e-commerce;
 
 ``npx openapi-typescript typespec/tsp-output/@typespec/openapi3/openapi.yaml -o ./client/src/types/types.ts``
 
-2. Import types where needed in React project:
+2. Import types in React project:
 
 ````
 import type { paths, components } from "../../types/types.ts";
