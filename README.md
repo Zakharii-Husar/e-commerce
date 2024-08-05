@@ -10,7 +10,7 @@
 
 3. Create the database:
 
-``CREATE DATABASE amazon;``
+``CREATE DATABASE e-commerce;``
 
 4. Create the user: 
 
@@ -18,11 +18,11 @@
 
 5. Grant privileges to the user on the database:
 
-``GRANT ALL PRIVILEGES ON DATABASE amazon TO amazon_user;``
+``GRANT ALL PRIVILEGES ON DATABASE e-commerce TO amazon_user;``
 
 6. Connect to the new database:
 
-``/c amazon``
+``/c e-commerce``
 
 7. Grant schema usage and creation privileges to the user:
 
@@ -39,7 +39,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO amazon_user;
 
 9. Initialize the database (you must be in the project root directory to run the following command):
 
-`` psql -h localhost -U amazon_user -d amazon -f ./api/data/init_db.sql``
+`` psql -h localhost -U amazon_user -d e-commerce -f ./api/data/init_db.sql``
 
 ## Typespec
 
