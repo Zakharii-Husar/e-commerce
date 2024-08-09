@@ -1,4 +1,4 @@
-# ecommerce
+# e-commerce
 
 ## DB Initialization
 
@@ -20,26 +20,14 @@
 
 ``GRANT ALL PRIVILEGES ON DATABASE ecommerce TO ecommerce;``
 
-6. Connect to the new database:
 
-``/c ecommerce``
-
-7. Grant schema usage and creation privileges to the user:
-
-````
-GRANT USAGE ON SCHEMA public TO ecommerce;
-GRANT CREATE ON SCHEMA public TO ecommerce;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO ecommerce;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO ecommerce;
-````
-
-8. Exit the psql prompt:
+6. Exit the psql prompt:
 
 ``/q``
 
-9. Initialize the database (you must be in the project root directory to run the following command):
+7. Initialize the database (you must be in the project root directory to run the following command):
 
-`` psql -h localhost -U ecommerce -d ecommerce -f ./api/data/init_db.sql``
+`` psql -h localhost -U postgres -d ecommerce -f ./api/data/init_db.sql``
 
 ## Typespec
 
