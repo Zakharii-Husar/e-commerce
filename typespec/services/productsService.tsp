@@ -16,13 +16,34 @@ using TypeSpec.Rest;
 namespace ProductsService {
   //handle product
     @get
-    @route("/") op getProducts():  ProductOverviewResponse[] | InvalidRequestError;
+    @route("/") op getProducts():  
+    {
+      @body products: ProductOverviewResponse[]
+    } | {
+      @statusCode statusCode: 400;
+      @body error: InvalidRequestError;
+    };
 
     @post
-    @route("/") op createProduct(createProductReq :CreateProductRequest):  ProductDetailsResponse | InvalidRequestError | UnauthorizedError;
+    @route("/") op createProduct(@body createProductReq :CreateProductRequest):  
+    { @statusCode statusCode: 201;
+      @body productDetailsResponse: ProductDetailsResponse 
+    }| {
+      @statusCode statusCode: 400;
+      @body error: InvalidRequestError;
+    } | {
+      @statusCode statusCode: 401;
+      @body error: UnauthorizedError;
+    };
 
     @get
-    @route("/{product_id}") op getProductById(@path product_id: string):  ProductDetailsResponse | InvalidRequestError;
+    @route("/{product_id}") 
+    op getProductById(@path product_id: string): {
+      @body product: ProductDetailsResponse;
+    } | {
+      @statusCode statusCode: 400;
+      @body error: InvalidRequestError;
+    };
 
     @put
     @route("/{product_id}") op updateProductById(@path product_id: string, updateProductReq: UpdateProductRequest):  ProductDetailsResponse | InvalidRequestError | UnauthorizedError;

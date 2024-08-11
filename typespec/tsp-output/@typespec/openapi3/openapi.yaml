@@ -4,7 +4,7 @@ info:
   version: 0.0.0
 tags: []
 paths:
-  /api/products:
+  /api/products/:
     get:
       operationId: getProducts
       parameters: []
@@ -14,35 +14,43 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - type: array
-                    items:
-                      $ref: '#/components/schemas/ProductOverviewResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductOverviewResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
     post:
       operationId: createProduct
       parameters: []
       responses:
-        '200':
-          description: The request has succeeded.
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/ProductDetailsResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
+                $ref: '#/components/schemas/ProductDetailsResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                createProductReq:
-                  $ref: '#/components/schemas/CreateProductRequest'
-              required:
-                - createProductReq
+              $ref: '#/components/schemas/CreateProductRequest'
   /api/products/{product_id}:
     get:
       operationId: getProductById
@@ -58,9 +66,13 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/ProductDetailsResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
+                $ref: '#/components/schemas/ProductDetailsResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
     put:
       operationId: updateProductById
       parameters:

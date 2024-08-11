@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/api/products": {
+    "/api/products/": {
         parameters: {
             query?: never;
             header?: never;
@@ -305,7 +305,16 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductOverviewResponse"][] | components["schemas"]["InvalidRequestError"];
+                    "application/json": components["schemas"]["ProductOverviewResponse"][];
+                };
+            };
+            /** @description The server could not understand the request due to invalid syntax. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvalidRequestError"];
                 };
             };
         };
@@ -319,19 +328,35 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
-                    createProductReq: components["schemas"]["CreateProductRequest"];
-                };
+                "application/json": components["schemas"]["CreateProductRequest"];
             };
         };
         responses: {
-            /** @description The request has succeeded. */
-            200: {
+            /** @description The request has succeeded and a new resource has been created as a result. */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductDetailsResponse"] | components["schemas"]["InvalidRequestError"] | components["schemas"]["UnauthorizedError"];
+                    "application/json": components["schemas"]["ProductDetailsResponse"];
+                };
+            };
+            /** @description The server could not understand the request due to invalid syntax. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvalidRequestError"];
+                };
+            };
+            /** @description Access is unauthorized. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UnauthorizedError"];
                 };
             };
         };
@@ -353,7 +378,16 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductDetailsResponse"] | components["schemas"]["InvalidRequestError"];
+                    "application/json": components["schemas"]["ProductDetailsResponse"];
+                };
+            };
+            /** @description The server could not understand the request due to invalid syntax. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvalidRequestError"];
                 };
             };
         };
