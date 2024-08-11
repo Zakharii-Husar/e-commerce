@@ -82,26 +82,26 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/ProductDetailsResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                updateProductReq:
-                  $ref: '#/components/schemas/UpdateProductRequest'
-              required:
-                - updateProductReq
+              $ref: '#/components/schemas/UpdateProductRequest'
     delete:
       operationId: deleteProductById
       parameters:
@@ -111,16 +111,20 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
   /api/products/{product_id}/attachement:
     post:
       operationId: uploadProductAttachment
@@ -136,10 +140,19 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/UploadProductImgResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
+                $ref: '#/components/schemas/UploadProductImgResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
       requestBody:
         required: true
         content:
@@ -194,11 +207,18 @@ paths:
             image/png:
               schema:
                 $ref: '#/components/schemas/GetProductImgResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/NotFoundError'
-                  - $ref: '#/components/schemas/InvalidRequestError'
+                $ref: '#/components/schemas/InvalidRequestError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
   /api/products/{product_id}/questions:
     get:
       operationId: getProductQuestions
@@ -209,17 +229,26 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
           content:
             application/json:
               schema:
-                anyOf:
-                  - type: array
-                    items:
-                      $ref: '#/components/schemas/QuestionResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/NotFoundError'
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestionResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
     post:
       operationId: postProductQuestion
       parameters:
@@ -234,11 +263,25 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/QuestionResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-                  - $ref: '#/components/schemas/NotFoundError'
+                $ref: '#/components/schemas/QuestionResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
       requestBody:
         required: true
         content:
@@ -265,11 +308,25 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/AnswerToQuestionResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-                  - $ref: '#/components/schemas/NotFoundError'
+                $ref: '#/components/schemas/AnswerToQuestionResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
       requestBody:
         required: true
         content:
@@ -296,12 +353,21 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - type: array
-                    items:
-                      $ref: '#/components/schemas/ReviewResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/NotFoundError'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReviewResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
     post:
       operationId: postProductReview
       parameters:
@@ -316,11 +382,25 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/ReviewResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/NotFoundError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
+                $ref: '#/components/schemas/ReviewResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
       requestBody:
         required: true
         content:
@@ -347,11 +427,25 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/AnswerToReviewResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/NotFoundError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
+                $ref: '#/components/schemas/AnswerToReviewResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
       requestBody:
         required: true
         content:
@@ -373,17 +467,26 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-                  - $ref: '#/components/schemas/NotFoundError'
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
 components:
   schemas:
     AnswerToQuestionRequest:

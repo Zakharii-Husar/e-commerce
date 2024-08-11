@@ -21,7 +21,7 @@ namespace AuthService {
     }
     | 
     {
-      @statusCode: 400;
+      @statusCode statusCode: 400;
       @body error: InvalidRequestError;
     } | 
     {
@@ -33,7 +33,7 @@ namespace AuthService {
     @route("/sign_in") op signIn(signInReq: SignInRequest): 
     AuthResponse |
     {
-      @statusCode: 400;
+      @statusCode statusCode: 400;
       @body error: InvalidRequestError;
     } | 
     {
@@ -48,7 +48,7 @@ namespace AuthService {
     }
      | 
      {
-      @statusCode: 400;
+      @statusCode statusCode: 400;
       @body error: InvalidRequestError;
     } | 
     {
@@ -62,7 +62,7 @@ namespace AuthService {
       @statusCode statusCode: 204;
     } |
     {
-      @statusCode: 400;
+      @statusCode statusCode: 400;
       @body error: InvalidRequestError;
     }| 
     {

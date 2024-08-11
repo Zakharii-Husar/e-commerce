@@ -66,7 +66,7 @@ namespace ProductsService {
     } | {
       @statusCode statusCode: 401;
       @body error: UnauthorizedError;
-    }
+    };
 
     //handle attachments
     @post
@@ -83,18 +83,14 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 401;
     @body error: UnauthorizedError;
-  }
+  };
 
     
     @get
     @route("/{product_id}/attachement/{attachement_id}") op getProductAttachmentById( @path product_id: string, @path attachement_id: string) : 
     {
-      @body getProductImgResponse GetProductImgResponse & {
-        @header("Content-Type") contentType: 
-        "image/jpeg" | 
-        "image/jpg" |
-         "image/png"
-    }
+      @header("Content-Type") contentType: "image/jpeg" | "image/jpg" | "image/png";
+      @body imgData: GetProductImgResponse;
     } | {
       @statusCode statusCode: 404;
       @body error: NotFoundError;
@@ -109,7 +105,7 @@ namespace ProductsService {
     @statusCode statusCode: 204;
   } | 
   {
-    @statusCode: 400;
+    @statusCode statusCode: 400;
     @body error: InvalidRequestError;
   } | 
   {
@@ -118,7 +114,7 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
-  }
+  };
 
   //handle questions
   @get
@@ -126,13 +122,13 @@ namespace ProductsService {
     @statusCode statusCode: 204;
     @body questionResponse: QuestionResponse[] 
   } | {
-    @statusCode: 400;
+    @statusCode statusCode: 400;
     @body error: InvalidRequestError;
   } | 
   {
-    @statusCode: 404;
+    @statusCode statusCode: 404;
     @body error: NotFoundError;
-  }
+  };
 
   @post
   @route("/{product_id}/questions") op postProductQuestion(@path product_id: string, @body postQuestionReq: QuestionRequest):  
@@ -140,7 +136,7 @@ namespace ProductsService {
     @body questionResponse: QuestionResponse
   } | 
   {
-    @statusCode: 400;
+    @statusCode statusCode: 400;
     @body error: InvalidRequestError;
   } | 
   {
@@ -149,7 +145,7 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
-  }
+  };
 
   @post 
   @route("/{product_id}/questions/{question_id}/respond") op postQuestionAnswer(@path product_id: string, @path question_id: string, postAnswerReq: AnswerToQuestionRequest):   
@@ -157,7 +153,7 @@ namespace ProductsService {
     @body answerToQuestionResponse: AnswerToQuestionResponse;
   } | 
   {
-    @statusCode: 400;
+    @statusCode statusCode: 400;
     @body error: InvalidRequestError;
   } | 
   {
@@ -175,7 +171,7 @@ namespace ProductsService {
     @body reviewResponse: ReviewResponse[] 
   }
   | {
-    @statusCode: 400;
+    @statusCode statusCode: 400;
     @body error: InvalidRequestError;
   } | {
     @statusCode statusCode: 404;
@@ -188,7 +184,7 @@ namespace ProductsService {
     @body reviewResponse: ReviewResponse;
   } |
   {
-    @statusCode: 400;
+    @statusCode statusCode: 400;
     @body error: InvalidRequestError;
   } | 
   {
@@ -205,7 +201,7 @@ namespace ProductsService {
     @body answerToReviewResponse: AnswerToReviewResponse;
   }|
   {
-    @statusCode: 400;
+    @statusCode statusCode: 400;
     @body error: InvalidRequestError;
   } | 
   {
