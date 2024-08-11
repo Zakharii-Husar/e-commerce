@@ -16,11 +16,56 @@ using TypeSpec.Rest;
 @route("/api/admin")
 namespace AdminService {
     @patch
-    @route("/suspend/user/{user_id}") op suspendUser(@path user_id: string): void | InvalidRequestError | UnauthorizedError | NotFoundError;
+    @route("/suspend/user/{user_id}") op suspendUser(@path user_id: string): 
+    {
+      @statusCode statusCode: 204;
+    } 
+    |
+    {
+      @statusCode: 400;
+      @body error: InvalidRequestError;
+    } | 
+    {
+      @statusCode statusCode: 401;
+      @body error: UnauthorizedError;
+    } | {
+      @statusCode statusCode: 404;
+      @body error: NotFoundError;
+    };
 
     @patch
-    @route("/suspend/product/{product_id}") op suspendProduct(@path product_id: string): void | InvalidRequestError | UnauthorizedError | NotFoundError;
+    @route("/suspend/product/{product_id}") op suspendProduct(@path product_id: string): 
+    {
+      @statusCode statusCode: 204;
+    } 
+    |
+    {
+      @statusCode: 400;
+      @body error: InvalidRequestError;
+    } | 
+    {
+      @statusCode statusCode: 401;
+      @body error: UnauthorizedError;
+    } | {
+      @statusCode statusCode: 404;
+      @body error: NotFoundError;
+    };
 
     @get
-    @route("/transactions") op getAllTransactions(): TransactionResponse[] | InvalidRequestError | UnauthorizedError | NotFoundError;
+    @route("/transactions") op getAllTransactions():
+    {
+      @body transactionResponse: TransactionResponse[];
+    } 
+    |
+    {
+      @statusCode: 400;
+      @body error: InvalidRequestError;
+    } | 
+    {
+      @statusCode statusCode: 401;
+      @body error: UnauthorizedError;
+    } | {
+      @statusCode statusCode: 404;
+      @body error: NotFoundError;
+    };
 } 
