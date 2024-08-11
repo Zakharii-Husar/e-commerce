@@ -27,6 +27,9 @@ namespace AuthService {
     {
       @statusCode statusCode: 401;
       @body error: UnauthorizedError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     @post
@@ -39,7 +42,11 @@ namespace AuthService {
     {
       @statusCode statusCode: 401;
       @body error: UnauthorizedError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
+
 
     @get
     @route("/sign_out") op signOut(): 
@@ -54,6 +61,9 @@ namespace AuthService {
     {
       @statusCode statusCode: 401;
       @body error: UnauthorizedError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     @post
@@ -68,6 +78,9 @@ namespace AuthService {
     {
       @statusCode statusCode: 401;
       @body error: UnauthorizedError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 } 
 

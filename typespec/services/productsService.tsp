@@ -22,6 +22,9 @@ namespace ProductsService {
     } | {
       @statusCode statusCode: 400;
       @body error: InvalidRequestError;
+    } | {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     @post
@@ -34,6 +37,9 @@ namespace ProductsService {
     } | {
       @statusCode statusCode: 401;
       @body error: UnauthorizedError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     @get
@@ -41,8 +47,11 @@ namespace ProductsService {
     op getProductById(@path product_id: string): {
       @body product: ProductDetailsResponse;
     } | {
-      @statusCode statusCode: 400;
-      @body error: InvalidRequestError;
+      @statusCode statusCode: 404;
+      @body error: NotFoundError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     @put
@@ -55,6 +64,9 @@ namespace ProductsService {
     } | {
       @statusCode statusCode: 401;
       @body error: UnauthorizedError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     @delete
@@ -66,6 +78,9 @@ namespace ProductsService {
     } | {
       @statusCode statusCode: 401;
       @body error: UnauthorizedError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     //handle attachments
@@ -83,6 +98,9 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 401;
     @body error: UnauthorizedError;
+  }| {
+    @statusCode statusCode: 500;
+    @body error: InternalServerError;
   };
 
     
@@ -97,6 +115,9 @@ namespace ProductsService {
     } | {
       @statusCode statusCode: 400;
       @body error: InvalidRequestError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
   @delete
@@ -114,6 +135,9 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
+  }| {
+    @statusCode statusCode: 500;
+    @body error: InternalServerError;
   };
 
   //handle questions
@@ -128,6 +152,9 @@ namespace ProductsService {
   {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
+  }| {
+    @statusCode statusCode: 500;
+    @body error: InternalServerError;
   };
 
   @post
@@ -145,6 +172,9 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
+  }| {
+    @statusCode statusCode: 500;
+    @body error: InternalServerError;
   };
 
   @post 
@@ -162,6 +192,9 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
+  }| {
+    @statusCode statusCode: 500;
+    @body error: InternalServerError;
   };
 
   //handle reviews
@@ -176,6 +209,9 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
+  } | {
+    @statusCode statusCode: 500;
+    @body error: InternalServerError;
   };
 
   @post
@@ -193,6 +229,9 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
+  } | {
+    @statusCode statusCode: 500;
+    @body error: InternalServerError;
   };
 
   @post
@@ -210,5 +249,8 @@ namespace ProductsService {
   } | {
     @statusCode statusCode: 404;
     @body error: NotFoundError;
+  } | {
+    @statusCode statusCode: 500;
+    @body error: InternalServerError;
   };
 } 

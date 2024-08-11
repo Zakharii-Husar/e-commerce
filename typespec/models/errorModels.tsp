@@ -17,4 +17,9 @@ model ErrorResponse {
     code: 404;
     message: "Not Found";
   }
+
+  model InternalServerError extends ErrorResponse {
+    code: 500;
+    message: "Something went wrong. Try again later";
+  }
   

@@ -25,7 +25,10 @@ namespace UsersService {
     } | {
         @statusCode statusCode: 401;
         @body error: UnauthorizedError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @get
     @route("/search")
@@ -37,7 +40,10 @@ namespace UsersService {
     } | {
         @statusCode statusCode: 401;
         @body error: UnauthorizedError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @get
     @route("/{user_id}")
@@ -52,7 +58,10 @@ namespace UsersService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @patch
     @route("/{user_id}")
@@ -67,6 +76,9 @@ namespace UsersService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
     };
 
     @delete
@@ -79,5 +91,8 @@ namespace UsersService {
     } | {
         @statusCode statusCode: 401;
         @body error: UnauthorizedError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 }

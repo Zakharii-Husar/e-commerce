@@ -26,7 +26,10 @@ namespace WishlistService {
     } | {
         @statusCode statusCode: 401;
         @body error: UnauthorizedError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @post
     @route("/items/{product_id}")
@@ -41,7 +44,10 @@ namespace WishlistService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @delete
     @route("/items/{product_id}")
@@ -56,5 +62,8 @@ namespace WishlistService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 }

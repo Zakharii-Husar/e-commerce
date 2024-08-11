@@ -27,7 +27,10 @@ namespace CartService {
     } | {
         @statusCode statusCode: 401;
         @body error: UnauthorizedError;
-    };
+    }| {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @post
     @route("/items/{product_id}")
@@ -42,7 +45,10 @@ namespace CartService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    }| {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @patch
     @route("/items/{product_id}")
@@ -57,7 +63,10 @@ namespace CartService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    }| {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @delete
     @route("/items/{product_id}")
@@ -72,5 +81,8 @@ namespace CartService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    }| {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 }

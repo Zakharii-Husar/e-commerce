@@ -31,6 +31,9 @@ namespace AdminService {
     } | {
       @statusCode statusCode: 404;
       @body error: NotFoundError;
+    } | {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     @patch
@@ -49,6 +52,9 @@ namespace AdminService {
     } | {
       @statusCode statusCode: 404;
       @body error: NotFoundError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 
     @get
@@ -67,5 +73,8 @@ namespace AdminService {
     } | {
       @statusCode statusCode: 404;
       @body error: NotFoundError;
+    }| {
+      @statusCode statusCode: 500;
+      @body error: InternalServerError;
     };
 } 

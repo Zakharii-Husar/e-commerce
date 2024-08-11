@@ -30,7 +30,10 @@ namespace SellerService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @get
     @route("/orders")
@@ -45,7 +48,10 @@ namespace SellerService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 
     @put
     @route("/orders/{order_id}/update")
@@ -60,5 +66,8 @@ namespace SellerService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    } | {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 }

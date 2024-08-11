@@ -25,6 +25,9 @@ namespace OrdersService {
     } | {
         @statusCode statusCode: 401;
         @body error: UnauthorizedError;
+    }| {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
     };
 
     @get
@@ -40,6 +43,9 @@ namespace OrdersService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
+    }| {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
     };
 
     @patch
@@ -55,6 +61,9 @@ namespace OrdersService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
+    }| {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
     };
 
     @patch
@@ -70,5 +79,8 @@ namespace OrdersService {
     } | {
         @statusCode statusCode: 404;
         @body error: NotFoundError;
-    };
+    }| {
+        @statusCode statusCode: 500;
+        @body error: InternalServerError;
+      };
 }
