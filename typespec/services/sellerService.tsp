@@ -6,23 +6,62 @@ import "../models/productModels.tsp";
 import "../models/orderModels.tsp";
 import "../models/sellerModels.tsp";
 
-
 using TypeSpec.Http;
 using TypeSpec.Rest;
 
 #suppress "@typespec/http/no-service-found" ""
 
 @service({
-    title: "Seller service",
-  })
+    title: "Seller Service",
+})
 @route("/api/sellers")
 namespace SellerService {
+    
     @get
-    @route("/inventory") op getInventory(): ProductDetailsResponse[] | InvalidRequestError | UnauthorizedError | NotFoundError;
+    @route("/inventory")
+    op getInventory(): {
+        @statusCode statusCode: 200;
+        @body inventory: ProductDetailsResponse[];
+    } | {
+        @statusCode statusCode: 400;
+        @body error: InvalidRequestError;
+    } | {
+        @statusCode statusCode: 401;
+        @body error: UnauthorizedError;
+    } | {
+        @statusCode statusCode: 404;
+        @body error: NotFoundError;
+    };
 
     @get
-    @route("/orders") op getOrders(): OrderDetailsResponse[] | InvalidRequestError | UnauthorizedError | NotFoundError;
+    @route("/orders")
+    op getOrders(): {
+        @statusCode statusCode: 200;
+        @body orders: OrderDetailsResponse[];
+    } | {
+        @statusCode statusCode: 400;
+        @body error: InvalidRequestError;
+    } | {
+        @statusCode statusCode: 401;
+        @body error: UnauthorizedError;
+    } | {
+        @statusCode statusCode: 404;
+        @body error: NotFoundError;
+    };
 
     @put
-    @route("/orders/{order_id}/update") op updateOrder(@path order_id: string, @body updateOrderReq: UpdateOrder): UpdateOrder | InvalidRequestError | UnauthorizedError | NotFoundError;
-} 
+    @route("/orders/{order_id}/update")
+    op updateOrder(@path order_id: string, @body updateOrderReq: UpdateOrder): {
+        @statusCode statusCode: 200;
+        @body response: UpdateOrder;
+    } | {
+        @statusCode statusCode: 400;
+        @body error: InvalidRequestError;
+    } | {
+        @statusCode statusCode: 401;
+        @body error: UnauthorizedError;
+    } | {
+        @statusCode statusCode: 404;
+        @body error: NotFoundError;
+    };
+}
