@@ -18,7 +18,6 @@ namespace UsersService {
     @get
     @route("/")
     op getUsers(): {
-        @statusCode statusCode: 200;
         @body users: UserDetailsResponse[];
     } | {
         @statusCode statusCode: 400;
@@ -31,7 +30,6 @@ namespace UsersService {
     @get
     @route("/search")
     op searchUsers(@query query: string): {
-        @statusCode statusCode: 200;
         @body users: UserDetailsResponse[];
     } | {
         @statusCode statusCode: 400;
@@ -44,7 +42,6 @@ namespace UsersService {
     @get
     @route("/{user_id}")
     op getUserById(@path user_id: string): {
-        @statusCode statusCode: 200;
         @body user: UserDetailsResponse;
     } | {
         @statusCode statusCode: 400;
@@ -60,7 +57,6 @@ namespace UsersService {
     @patch
     @route("/{user_id}")
     op updateUserDetails(@path user_id: string, @body update: UpdateUserRequest): {
-        @statusCode statusCode: 200;
         @body user: UserDetailsResponse;
     } | {
         @statusCode statusCode: 400;

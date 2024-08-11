@@ -20,7 +20,6 @@ namespace CartService {
     @get
     @route("/")
     op getCartItems(): {
-        @statusCode statusCode: 200;
         @body items: ProductOverviewResponse[];
     } | {
         @statusCode statusCode: 400;

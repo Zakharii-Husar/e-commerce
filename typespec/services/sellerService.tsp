@@ -20,7 +20,6 @@ namespace SellerService {
     @get
     @route("/inventory")
     op getInventory(): {
-        @statusCode statusCode: 200;
         @body inventory: ProductDetailsResponse[];
     } | {
         @statusCode statusCode: 400;
@@ -36,7 +35,6 @@ namespace SellerService {
     @get
     @route("/orders")
     op getOrders(): {
-        @statusCode statusCode: 200;
         @body orders: OrderDetailsResponse[];
     } | {
         @statusCode statusCode: 400;
@@ -52,7 +50,6 @@ namespace SellerService {
     @put
     @route("/orders/{order_id}/update")
     op updateOrder(@path order_id: string, @body updateOrderReq: UpdateOrder): {
-        @statusCode statusCode: 200;
         @body response: UpdateOrder;
     } | {
         @statusCode statusCode: 400;

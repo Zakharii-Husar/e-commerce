@@ -18,7 +18,6 @@ namespace OrdersService {
     @get
     @route("/")
     op getOrders(): {
-        @statusCode statusCode: 200;
         @body orders: OrderOverviewResponse[];
     } | {
         @statusCode statusCode: 400;
@@ -31,7 +30,6 @@ namespace OrdersService {
     @get
     @route("/items/{order_id}")
     op getOrderById(@path order_id: string): {
-        @statusCode statusCode: 200;
         @body order: OrderDetailsResponse;
     } | {
         @statusCode statusCode: 400;
@@ -47,7 +45,6 @@ namespace OrdersService {
     @patch
     @route("/items/{order_id}/cancel")
     op cancelOrder(@path order_id: string): {
-        @statusCode statusCode: 200;
         @body response: CancelOrderResponse;
     } | {
         @statusCode statusCode: 400;
@@ -63,7 +60,6 @@ namespace OrdersService {
     @patch
     @route("/items/{order_id}/update")
     op updateOrder(@path order_id: string, @body updateOrderReq: UpdateOrderRequest): {
-        @statusCode statusCode: 200;
         @body response: UpdateOrderResponse;
     } | {
         @statusCode statusCode: 400;

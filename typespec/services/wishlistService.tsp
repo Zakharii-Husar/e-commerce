@@ -19,7 +19,6 @@ namespace WishlistService {
     @get
     @route("/")
     op getWishlistItems(): {
-        @statusCode statusCode: 200;
         @body wishlist: ProductOverviewResponse[];
     } | {
         @statusCode statusCode: 400;
