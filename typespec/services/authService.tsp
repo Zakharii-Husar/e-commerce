@@ -15,15 +15,59 @@ using TypeSpec.Rest;
 @route("/api/auth")
 namespace AuthService {
     @post
-    @route("/sign_up") op signUp(signUpReq: SignUpRequest): AuthResponse | InvalidRequestError | UnauthorizedError;
+    @route("/sign_up") op signUp(signUpReq: SignUpRequest): 
+    {
+      @body authResponse: AuthResponse;
+    }
+    | 
+    {
+      @statusCode: 400;
+      @body error: InvalidRequestError;
+    } | 
+    {
+      @statusCode statusCode: 401;
+      @body error: UnauthorizedError;
+    };
 
     @post
-    @route("/sign_in") op signIn(signInReq: SignInRequest): AuthResponse | InvalidRequestError | UnauthorizedError;
+    @route("/sign_in") op signIn(signInReq: SignInRequest): 
+    AuthResponse |
+    {
+      @statusCode: 400;
+      @body error: InvalidRequestError;
+    } | 
+    {
+      @statusCode statusCode: 401;
+      @body error: UnauthorizedError;
+    };
 
     @get
-    @route("/sign_out") op signOut(): void | InvalidRequestError | UnauthorizedError;
+    @route("/sign_out") op signOut(): 
+    {
+      @statusCode statusCode: 204;
+    }
+     | 
+     {
+      @statusCode: 400;
+      @body error: InvalidRequestError;
+    } | 
+    {
+      @statusCode statusCode: 401;
+      @body error: UnauthorizedError;
+    };
 
     @post
-    @route("/recover_password") op recoverPassword(passRecoverRequest: PassRecoverRequest): void | InvalidRequestError | UnauthorizedError;
+    @route("/recover_password") op recoverPassword(passRecoverRequest: PassRecoverRequest): 
+    {
+      @statusCode statusCode: 204;
+    } |
+    {
+      @statusCode: 400;
+      @body error: InvalidRequestError;
+    }| 
+    {
+      @statusCode statusCode: 401;
+      @body error: UnauthorizedError;
+    };
 } 
 
