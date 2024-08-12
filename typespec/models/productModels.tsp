@@ -5,7 +5,6 @@ import "@typespec/openapi3";
 model ProductOverviewResponse {
     productId: int64;
     productName: string;
-    productDescription?: string;
     productPrice: float;
     productCategory: string;
     productAttachements: string[]; // array of product attachments' names or links

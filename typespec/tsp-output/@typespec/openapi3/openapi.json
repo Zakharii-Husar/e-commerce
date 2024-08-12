@@ -6,7 +6,7 @@
   },
   "tags": [],
   "paths": {
-    "/api/products": {
+    "/api/products/": {
       "get": {
         "operationId": "getProducts",
         "parameters": [],
@@ -16,17 +16,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ProductOverviewResponse"
-                      }
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductOverviewResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -37,22 +50,42 @@
         "operationId": "createProduct",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "The request has succeeded.",
+          "201": {
+            "description": "The request has succeeded and a new resource has been created as a result.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/ProductDetailsResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ProductDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -63,15 +96,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "createProductReq": {
-                    "$ref": "#/components/schemas/CreateProductRequest"
-                  }
-                },
-                "required": [
-                  "createProductReq"
-                ]
+                "$ref": "#/components/schemas/CreateProductRequest"
               }
             }
           }
@@ -97,14 +122,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/ProductDetailsResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ProductDetailsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -124,22 +162,35 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "The request has succeeded.",
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/ProductDetailsResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -150,15 +201,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "updateProductReq": {
-                    "$ref": "#/components/schemas/UpdateProductRequest"
-                  }
-                },
-                "required": [
-                  "updateProductReq"
-                ]
+                "$ref": "#/components/schemas/UpdateProductRequest"
               }
             }
           }
@@ -177,25 +220,38 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "The request has succeeded.",
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/InvalidRequestError"
                 }
               }
             }
           },
-          "204": {
-            "description": "There is no content to send for this request, but the headers may be useful. "
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       }
@@ -219,17 +275,37 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/UploadProductImgResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/UploadProductImgResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -320,17 +396,35 @@
                 "schema": {
                   "$ref": "#/components/schemas/GetProductImgResponse"
                 }
-              },
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/NotFoundError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -352,25 +446,45 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "The request has succeeded.",
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. ",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/QuestionResponse"
-                      }
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/NotFoundError"
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -395,20 +509,47 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/QuestionResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/NotFoundError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/QuestionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -453,20 +594,47 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/AnswerToQuestionResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/NotFoundError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/AnswerToQuestionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -511,20 +679,40 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ReviewResponse"
-                      }
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/NotFoundError"
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -549,20 +737,47 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/ReviewResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/NotFoundError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ReviewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -607,20 +822,47 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/AnswerToReviewResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/NotFoundError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/AnswerToReviewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -660,28 +902,48 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "The request has succeeded.",
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/InvalidRequestError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/UnauthorizedError"
-                    },
-                    {
-                      "$ref": "#/components/schemas/NotFoundError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/InvalidRequestError"
                 }
               }
             }
           },
-          "204": {
-            "description": "There is no content to send for this request, but the headers may be useful. "
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       }
@@ -773,9 +1035,6 @@
           "productName": {
             "type": "string"
           },
-          "productDescription": {
-            "type": "string"
-          },
           "productPrice": {
             "type": "number"
           },
@@ -784,6 +1043,28 @@
           },
           "productQuantity": {
             "type": "integer"
+          },
+          "productDescription": {
+            "type": "string"
+          },
+          "productMaterial": {
+            "type": "string"
+          },
+          "productWeight": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "productWidth": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "productLenght": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "productHeight": {
+            "type": "number",
+            "format": "decimal"
           }
         }
       },
@@ -823,6 +1104,32 @@
             "format": "byte"
           }
         }
+      },
+      "InternalServerError": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "number",
+            "enum": [
+              500
+            ]
+          },
+          "message": {
+            "type": "string",
+            "enum": [
+              "Something went wrong. Try again later"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ErrorResponse"
+          }
+        ]
       },
       "InvalidRequestError": {
         "type": "object",
@@ -879,13 +1186,7 @@
       "ProductDetailsResponse": {
         "type": "object",
         "required": [
-          "stockQuantity",
-          "productDescription",
-          "productMaterial",
-          "productWeight",
-          "productWidth",
-          "productLenght",
-          "productHeight"
+          "stockQuantity"
         ],
         "properties": {
           "stockQuantity": {
