@@ -236,12 +236,16 @@ export interface components {
             /** Format: int64 */
             productId: number;
             productName: string;
-            productDescription?: string;
             productPrice: number;
             productCategory: string;
             productAttachements: string[];
             sellerUsername: string;
-            stats: unknown[];
+            rating: components["schemas"]["ProductRatingResponse"];
+        };
+        ProductRatingResponse: {
+            /** Format: int32 */
+            ratedTimes: number;
+            averageRating: number;
         };
         QuestionRequest: {
             question: string;

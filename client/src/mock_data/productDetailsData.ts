@@ -5,7 +5,10 @@ const productDetailsData = {
     productCategory: "Electronics",
     productAttachements: ["link1", "link2"], // array of product attachments' names or links
     sellerUsername: "Landscaping Inc",
-    // stats: [ int32, float32 ];
+    rating: {
+        ratedTimes: 27,
+        averageRating: 4.7
+    },
     stockQuantity: 7,
     productDescription: "Some Description",  //optional
     productMaterial: "Plastic/metal", //optional
@@ -14,3 +17,5 @@ const productDetailsData = {
     productLenght: 10.00, //optional
     productHeight: 7.00 //optional
 }
+
+export default productDetailsData;

@@ -1,7 +1,7 @@
 import Layout from "../components/layout/Layout";
 import Home from "../components/home/Home";
 import SignIn from "../components/auth/SignIn";
-import Product from "../components/products/ProductDetails";
+import Product from "../components/products/product_details/ProductDetails";
 import { createBrowserRouter } from "react-router-dom";
 import PATH from "./pathConstants";
 

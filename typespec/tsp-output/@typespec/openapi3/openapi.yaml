@@ -760,14 +760,12 @@ components:
         - productCategory
         - productAttachements
         - sellerUsername
-        - stats
+        - rating
       properties:
         productId:
           type: integer
           format: int64
         productName:
-          type: string
-        productDescription:
           type: string
         productPrice:
           type: number
@@ -779,9 +777,19 @@ components:
             type: string
         sellerUsername:
           type: string
-        stats:
-          type: array
-          items: {}
+        rating:
+          $ref: '#/components/schemas/ProductRatingResponse'
+    ProductRatingResponse:
+      type: object
+      required:
+        - ratedTimes
+        - averageRating
+      properties:
+        ratedTimes:
+          type: integer
+          format: int32
+        averageRating:
+          type: number
     QuestionRequest:
       type: object
       required:

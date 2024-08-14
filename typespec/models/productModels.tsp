@@ -2,6 +2,10 @@ import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/openapi3";
 
+model ProductRatingResponse {
+    ratedTimes: int32;
+    averageRating: float;
+}
 model ProductOverviewResponse {
     productId: int64;
     productName: string;
@@ -9,7 +13,7 @@ model ProductOverviewResponse {
     productCategory: string;
     productAttachements: string[]; // array of product attachments' names or links
     sellerUsername: string;
-    stats: [ int32, float32 ];
+    rating: ProductRatingResponse;
 }
 
 model ProductDetailsResponse extends ProductOverviewResponse {
