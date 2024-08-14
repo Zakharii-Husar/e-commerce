@@ -7,7 +7,7 @@ model TransactionResponse {
     payeeId: int64;
     payerUsername: string;
     payeeUsername: string;
-    amount: decimal;
+    amount: float;
     transactionStatus: string;
     transactionTime: DateTimeKnownEncoding;
 }

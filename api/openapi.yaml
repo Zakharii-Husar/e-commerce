@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  title: Products service
+  title: Wishlist Service
   version: 0.0.0
 tags: []
 paths:
-  /api/products:
+  /api/wishlist/:
     get:
-      operationId: getProducts
+      operationId: getWishlistItems
       parameters: []
       responses:
         '200':
@@ -14,38 +14,30 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
-                  - type: array
-                    items:
-                      $ref: '#/components/schemas/ProductOverviewResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductOverviewResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /api/wishlist/items/{product_id}:
     post:
-      operationId: createProduct
-      parameters: []
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - $ref: '#/components/schemas/ProductDetailsResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                createProductReq:
-                  $ref: '#/components/schemas/CreateProductRequest'
-              required:
-                - createProductReq
-  /api/products/{product_id}:
-    get:
-      operationId: getProductById
+      operationId: addItemToWishlist
       parameters:
         - name: product_id
           in: path
@@ -53,45 +45,34 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/ProductDetailsResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-    put:
-      operationId: updateProductById
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/ProductDetailsResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                updateProductReq:
-                  $ref: '#/components/schemas/UpdateProductRequest'
-              required:
-                - updateProductReq
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
     delete:
-      operationId: deleteProductById
+      operationId: deleteItemFromWishlist
       parameters:
         - name: product_id
           in: path
@@ -99,366 +80,34 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
         '204':
           description: 'There is no content to send for this request, but the headers may be useful. '
-  /api/products/{product_id}/attachement:
-    post:
-      operationId: uploadProductAttachment
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/UploadProductImgResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-      requestBody:
-        required: true
-        content:
-          image/jpeg:
-            schema:
-              type: object
-              properties:
-                uploadProductImgReq:
-                  $ref: '#/components/schemas/UploadProductImgRequest'
-              required:
-                - uploadProductImgReq
-          image/jpg:
-            schema:
-              type: object
-              properties:
-                uploadProductImgReq:
-                  $ref: '#/components/schemas/UploadProductImgRequest'
-              required:
-                - uploadProductImgReq
-          image/png:
-            schema:
-              type: object
-              properties:
-                uploadProductImgReq:
-                  $ref: '#/components/schemas/UploadProductImgRequest'
-              required:
-                - uploadProductImgReq
-  /api/products/{product_id}/attachement/{attachement_id}:
-    get:
-      operationId: getProductAttachmentById
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: attachement_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            image/jpeg:
-              schema:
-                $ref: '#/components/schemas/GetProductImgResponse'
-            image/jpg:
-              schema:
-                $ref: '#/components/schemas/GetProductImgResponse'
-            image/png:
-              schema:
-                $ref: '#/components/schemas/GetProductImgResponse'
-            application/json:
-              schema:
-                anyOf:
-                  - $ref: '#/components/schemas/NotFoundError'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-  /api/products/{product_id}/questions:
-    get:
-      operationId: getProductQuestions
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
           content:
             application/json:
               schema:
-                anyOf:
-                  - type: array
-                    items:
-                      $ref: '#/components/schemas/QuestionResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/NotFoundError'
-    post:
-      operationId: postProductQuestion
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/QuestionResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-                  - $ref: '#/components/schemas/NotFoundError'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/QuestionRequest'
-  /api/products/{product_id}/questions/{question_id}/respond:
-    post:
-      operationId: postQuestionAnswer
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: question_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Server error
           content:
             application/json:
               schema:
-                anyOf:
-                  - $ref: '#/components/schemas/AnswerToQuestionResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-                  - $ref: '#/components/schemas/NotFoundError'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                postAnswerReq:
-                  $ref: '#/components/schemas/AnswerToQuestionRequest'
-              required:
-                - postAnswerReq
-  /api/products/{product_id}/reviews:
-    get:
-      operationId: getProductReviews
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - type: array
-                    items:
-                      $ref: '#/components/schemas/ReviewResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/NotFoundError'
-    post:
-      operationId: postProductReview
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - $ref: '#/components/schemas/ReviewResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/NotFoundError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ReviewRequest'
-  /api/products/{product_id}/reviews/{review_id}/respond:
-    post:
-      operationId: respondToReview
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: review_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - $ref: '#/components/schemas/AnswerToReviewResponse'
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/NotFoundError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AnswerToReviewRequest'
-  /api/products/{product_id}attachement/{attachement_id}:
-    delete:
-      operationId: deleteProductAttachmentById
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: attachement_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - $ref: '#/components/schemas/InvalidRequestError'
-                  - $ref: '#/components/schemas/UnauthorizedError'
-                  - $ref: '#/components/schemas/NotFoundError'
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
+                $ref: '#/components/schemas/InternalServerError'
 components:
   schemas:
-    AnswerToQuestionRequest:
-      type: object
-      required:
-        - username
-        - answer
-      properties:
-        username:
-          type: string
-        answer:
-          type: string
-    AnswerToQuestionResponse:
-      type: object
-      required:
-        - answerId
-        - dateTime
-      properties:
-        answerId:
-          type: integer
-          format: int64
-        dateTime:
-          $ref: '#/components/schemas/DateTimeKnownEncoding'
-      allOf:
-        - $ref: '#/components/schemas/AnswerToQuestionRequest'
-    AnswerToReviewRequest:
-      type: object
-      required:
-        - username
-        - answer
-      properties:
-        username:
-          type: string
-        answer:
-          type: string
-    AnswerToReviewResponse:
-      type: object
-      required:
-        - answerId
-        - dateTime
-      properties:
-        answerId:
-          type: integer
-          format: int64
-        dateTime:
-          $ref: '#/components/schemas/DateTimeKnownEncoding'
-      allOf:
-        - $ref: '#/components/schemas/AnswerToReviewRequest'
-    CreateProductRequest:
-      type: object
-      required:
-        - productName
-        - productPrice
-        - productCategory
-        - productQuantity
-      properties:
-        productName:
-          type: string
-        productPrice:
-          type: number
-        productCategory:
-          type: string
-        productQuantity:
-          type: integer
-        productDescription:
-          type: string
-        productMaterial:
-          type: string
-        productWeight:
-          type: number
-          format: decimal
-        productWidth:
-          type: number
-          format: decimal
-        productLenght:
-          type: number
-          format: decimal
-        productHeight:
-          type: number
-          format: decimal
-    DateTimeKnownEncoding:
-      type: string
-      enum:
-        - rfc3339
-        - rfc7231
-        - unixTimestamp
-      description: Known encoding to use on utcDateTime or offsetDateTime
     ErrorResponse:
       type: object
       required:
@@ -470,14 +119,22 @@ components:
           format: int32
         message:
           type: string
-    GetProductImgResponse:
+    InternalServerError:
       type: object
       required:
-        - image
+        - code
+        - message
       properties:
-        image:
+        code:
+          type: number
+          enum:
+            - 500
+        message:
           type: string
-          format: byte
+          enum:
+            - Something went wrong. Try again later
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
     InvalidRequestError:
       type: object
       required:
@@ -510,6 +167,16 @@ components:
             - Not Found
       allOf:
         - $ref: '#/components/schemas/ErrorResponse'
+    OrderedItemModel:
+      type: object
+      required:
+        - orderedQuantity
+      properties:
+        orderedQuantity:
+          type: integer
+          format: int16
+      allOf:
+        - $ref: '#/components/schemas/ProductOverviewResponse'
     ProductDetailsResponse:
       type: object
       required:
@@ -524,16 +191,12 @@ components:
           type: string
         productWeight:
           type: number
-          format: decimal
         productWidth:
           type: number
-          format: decimal
         productLenght:
           type: number
-          format: decimal
         productHeight:
           type: number
-          format: decimal
       allOf:
         - $ref: '#/components/schemas/ProductOverviewResponse'
     ProductOverviewResponse:
@@ -545,14 +208,12 @@ components:
         - productCategory
         - productAttachements
         - sellerUsername
-        - stats
+        - rating
       properties:
         productId:
           type: integer
           format: int64
         productName:
-          type: string
-        productDescription:
           type: string
         productPrice:
           type: number
@@ -564,64 +225,19 @@ components:
             type: string
         sellerUsername:
           type: string
-        stats:
-          type: array
-          items: {}
-    QuestionRequest:
+        rating:
+          $ref: '#/components/schemas/ProductRatingResponse'
+    ProductRatingResponse:
       type: object
       required:
-        - question
+        - ratedTimes
+        - averageRating
       properties:
-        question:
-          type: string
-    QuestionResponse:
-      type: object
-      required:
-        - questionId
-        - username
-        - question
-        - dateTime
-      properties:
-        questionId:
+        ratedTimes:
           type: integer
-          format: int64
-        username:
-          type: string
-        question:
-          type: string
-        dateTime:
-          $ref: '#/components/schemas/DateTimeKnownEncoding'
-    ReviewRequest:
-      type: object
-      required:
-        - rate
-      properties:
-        rate:
+          format: int32
+        averageRating:
           type: number
-          enum:
-            - 1
-            - 2
-            - 3
-            - 4
-            - 5
-        comment:
-          type: string
-    ReviewResponse:
-      type: object
-      required:
-        - reviewId
-        - username
-        - dateTime
-      properties:
-        reviewId:
-          type: integer
-          format: int16
-        username:
-          type: string
-        dateTime:
-          $ref: '#/components/schemas/DateTimeKnownEncoding'
-      allOf:
-        - $ref: '#/components/schemas/ReviewRequest'
     UnauthorizedError:
       type: object
       required:
@@ -638,37 +254,3 @@ components:
             - Unauthorized
       allOf:
         - $ref: '#/components/schemas/ErrorResponse'
-    UpdateProductRequest:
-      type: object
-      properties:
-        productName:
-          type: string
-        productDescription:
-          type: string
-        productPrice:
-          type: number
-        productCategory:
-          type: string
-        productQuantity:
-          type: integer
-        stockQuantity:
-          type: integer
-          format: int32
-    UploadProductImgRequest:
-      type: object
-      required:
-        - image
-      properties:
-        image:
-          type: string
-          format: byte
-    UploadProductImgResponse:
-      type: object
-      required:
-        - success
-        - attachementId
-      properties:
-        success:
-          type: boolean
-        attachementId:
-          type: string

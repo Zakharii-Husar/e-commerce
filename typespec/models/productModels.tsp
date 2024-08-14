@@ -20,10 +20,10 @@ model ProductDetailsResponse extends ProductOverviewResponse {
     stockQuantity: int32;
     productDescription?: string; //new
     productMaterial?: string; //new
-    productWeight?: decimal; //new
-    productWidth?: decimal; //new
-    productLenght?: decimal; //new
-    productHeight?: decimal; //new
+    productWeight?: float; //new
+    productWidth?: float; //new
+    productLenght?: float; //new
+    productHeight?: float; //new
 }
 
 model CreateProductRequest {
@@ -33,10 +33,10 @@ model CreateProductRequest {
     productQuantity: integer;
     productDescription?: string;
     productMaterial?: string; //new
-    productWeight?: decimal; //new
-    productWidth?: decimal; //new
-    productLenght?: decimal; //new
-    productHeight?: decimal; //new
+    productWeight?: float; //new
+    productWidth?: float; //new
+    productLenght?: float; //new
+    productHeight?: float; //new
 }
 
 model UpdateProductRequest {

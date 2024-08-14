@@ -7,13 +7,13 @@ model OrderedItemModel extends ProductOverviewResponse{
 model OrderOverviewResponse {
     orderId: int64;
     orderStatus: string;
-    orderPrice: decimal;
+    orderPrice: float;
     createdAt: DateTimeKnownEncoding;
 }
 
 model OrderDetailsResponse extends OrderOverviewResponse {
     orderDestination: string;
-    shippingRate: decimal;
+    shippingRate: float;
     transactionId: string;
     itemes: OrderedItemModel[];
 }

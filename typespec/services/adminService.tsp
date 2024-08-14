@@ -8,12 +8,11 @@ import "../models/adminModels.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 
-#suppress "@typespec/http/no-service-found" ""
-
+//#suppress "@typespec/http/no-service-found" ""
+@route("/api/admin")
 @service({
     title: "Admin service",
   })
-@route("/api/admin")
 namespace AdminService {
     @patch
     @route("/suspend/user/{user_id}") op suspendUser(@path user_id: string): 
@@ -22,7 +21,7 @@ namespace AdminService {
     } 
     |
     {
-      @statusCode: 400;
+      @statusCode statusCode: 400;
       @body error: InvalidRequestError;
     } | 
     {
@@ -43,7 +42,7 @@ namespace AdminService {
     } 
     |
     {
-      @statusCode: 400;
+      @statusCode statusCode: 400;
       @body error: InvalidRequestError;
     } | 
     {
@@ -64,7 +63,7 @@ namespace AdminService {
     } 
     |
     {
-      @statusCode: 400;
+      @statusCode statusCode: 400;
       @body error: InvalidRequestError;
     } | 
     {
