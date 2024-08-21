@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  title: Cart Service
+  title: Wishlist Service
   version: 0.0.0
 tags: []
 paths:
-  /api/cart/:
+  /api/wishlist/:
     get:
-      operationId: getCartItems
+      operationId: getWishlistItems
       parameters: []
       responses:
         '200':
@@ -35,9 +35,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /api/cart/items/{product_id}:
+  /api/wishlist/items/{product_id}:
     post:
-      operationId: addItemToCart
+      operationId: addItemToWishlist
       parameters:
         - name: product_id
           in: path
@@ -45,8 +45,8 @@ paths:
           schema:
             type: string
       responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
         '400':
           description: The server could not understand the request due to invalid syntax.
           content:
@@ -71,49 +71,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-    patch:
-      operationId: updateItemQuantity
-      parameters:
-        - name: product_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
-        '400':
-          description: The server could not understand the request due to invalid syntax.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InvalidRequestError'
-        '401':
-          description: Access is unauthorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-        '404':
-          description: The server cannot find the requested resource.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundError'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateCartItemRequest'
     delete:
-      operationId: deleteItemFromCart
+      operationId: deleteItemFromWishlist
       parameters:
         - name: product_id
           in: path
@@ -295,9 +254,3 @@ components:
             - Unauthorized
       allOf:
         - $ref: '#/components/schemas/ErrorResponse'
-    UpdateCartItemRequest:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          format: int32

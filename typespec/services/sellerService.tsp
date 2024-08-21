@@ -9,7 +9,7 @@ import "../models/sellerModels.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 
-//#suppress "@typespec/http/no-service-found" ""
+#suppress "@typespec/http/no-service-found" ""
 
 @service({
     title: "Seller Service",

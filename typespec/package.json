@@ -5,8 +5,8 @@
   "dependencies": {
     "@typespec/compiler": "latest",
     "@typespec/http": "latest",
-    "@typespec/rest": "latest",
-    "@typespec/openapi3": "latest"
+    "@typespec/openapi3": "^0.59.1",
+    "@typespec/rest": "latest"
   },
   "private": true
 }

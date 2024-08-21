@@ -16,17 +16,23 @@ using TypeSpec.Http;
 using TypeSpec.Rest;
 
 
-@service({
-  title: "E-Commerce service",
-})
 @server("https://ecommerce.com", "Single server endpoint for the eCommerce service")
+@service({
+  title: "Cart Service",
+})
+@route("/")
 namespace ECommerce {
-  using AdminService;
-  using AuthService;
-  using CartService;
-  using OrdersService;
-  using ProductsService;
-  using SellerService;
-  using UsersService;
-  using WishlistService;
+  @service({ title: "My Combined API"})
+  @route("/")
+  namespace CombinedAPI {
+    using AdminService;
+    using AuthService;
+    using CartService;
+    using OrdersService;
+    using ProductsService;
+    using SellerService;
+    using UsersService;
+     using WishlistService;
+  }
+  
 }
