@@ -15,7 +15,7 @@ using TypeSpec.Rest;
     title: "Cart Service",
 })
 @route("/api/cart")
-namespace CartService {
+namespace ECommerce.CartService {
     
     @get
     @route("/")

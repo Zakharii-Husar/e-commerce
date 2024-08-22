@@ -13,7 +13,7 @@ using TypeSpec.Rest;
 @service({
     title: "Admin service",
   })
-namespace AdminService {
+namespace ECommerce.AdminService {
     @patch
     @route("/suspend/user/{user_id}") op suspendUser(@path user_id: string): 
     {

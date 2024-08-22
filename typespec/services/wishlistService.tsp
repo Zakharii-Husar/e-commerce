@@ -14,7 +14,7 @@ using TypeSpec.Rest;
     title: "Wishlist Service",
 })
 @route("/api/wishlist")
-namespace WishlistService {
+namespace ECommerce.WishlistService {
     
     @get
     @route("/")

@@ -13,7 +13,7 @@ using TypeSpec.Rest;
     title: "Orders Service",
 })
 @route("/api/orders")
-namespace OrdersService {
+namespace ECommerce.OrdersService {
     
     @get
     @route("/")

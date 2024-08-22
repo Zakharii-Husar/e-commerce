@@ -13,7 +13,7 @@ using TypeSpec.Rest;
     title: "Auth service",
   })
 @route("/api/auth")
-namespace AuthService {
+namespace ECommerce.AuthService {
     @post
     @route("/sign_up") op signUp(signUpReq: SignUpRequest): 
     {

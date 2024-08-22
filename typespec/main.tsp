@@ -21,18 +21,4 @@ using TypeSpec.Rest;
   title: "Cart Service",
 })
 @route("/")
-namespace ECommerce {
-  @service({ title: "My Combined API"})
-  @route("/")
-  namespace CombinedAPI {
-    using AdminService;
-    using AuthService;
-    using CartService;
-    using OrdersService;
-    using ProductsService;
-    using SellerService;
-    using UsersService;
-     using WishlistService;
-  }
-  
-}
+namespace ECommerce {}
