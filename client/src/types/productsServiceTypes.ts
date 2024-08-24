@@ -177,13 +177,9 @@ export interface components {
             productQuantity: number;
             productDescription?: string;
             productMaterial?: string;
-            /** Format: decimal */
             productWeight?: number;
-            /** Format: decimal */
             productWidth?: number;
-            /** Format: decimal */
             productLenght?: number;
-            /** Format: decimal */
             productHeight?: number;
         };
         /**
@@ -218,18 +214,18 @@ export interface components {
             /** @enum {string} */
             message: "Not Found";
         } & WithRequired<components["schemas"]["ErrorResponse"], "code" | "message">;
+        OrderedItemModel: {
+            /** Format: int16 */
+            orderedQuantity: number;
+        } & components["schemas"]["ProductOverviewResponse"];
         ProductDetailsResponse: {
             /** Format: int32 */
             stockQuantity: number;
             productDescription?: string;
             productMaterial?: string;
-            /** Format: decimal */
             productWeight?: number;
-            /** Format: decimal */
             productWidth?: number;
-            /** Format: decimal */
             productLenght?: number;
-            /** Format: decimal */
             productHeight?: number;
         } & components["schemas"]["ProductOverviewResponse"];
         ProductOverviewResponse: {

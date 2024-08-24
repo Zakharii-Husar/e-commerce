@@ -16,8 +16,6 @@ using TypeSpec.Http;
 using TypeSpec.Rest;
 
 @server("https://ecommerce.com", "Single server endpoint for the eCommerce service")
-@service({
-  title: "Cart Service",
-})
+@service
 @route("/")
 namespace ECommerce {}

@@ -5,14 +5,16 @@
   "peerDependencies": {
     "@typespec/compiler": "latest",
     "@typespec/http": "latest",
-    "@typespec/rest": "latest",
-    "@typespec/openapi3": "latest"
+    "@typespec/openapi3": "latest",
+    "@typespec/rest": "latest"
   },
   "devDependencies": {
     "@typespec/compiler": "latest",
     "@typespec/http": "latest",
+    "@typespec/openapi3": "latest",
     "@typespec/rest": "latest",
-    "@typespec/openapi3": "latest"
+    "openapi-typescript": "^7.3.0",
+    "typescript": "^5.5.4"
   },
   "private": true
 }

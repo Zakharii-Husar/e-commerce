@@ -37,17 +37,32 @@
 
 ### Generate Open API Schema with [typespec.io](https://typespec.io/)
 
-1. Edit tspconfig.yaml file to change API schema format and output directory( ``ecommers/typespec/tsp-output/@typespec/openapi3/openapi.yaml`` by default).
-
-2. Run the TypeSpec compiler to compile TypeSpec files and generate the OpenAPI schema:
+1. Run the TypeSpec compiler to compile TypeSpec files and generate the OpenAPI schema:
 
 ``npx tsp compile .``
 
 ### Generating TypeScript types with [openapi-typescript](https://www.npmjs.com/package/openapi-typescript)
 
-1. Provide yaml schema and output file and generate the file with TS types(run the following command from the project root directory or adjust path accordingly):
+1. Provide yaml schemas and output files and generate the files with TS types(run the following command from the project root directory):
 
-``npx openapi-typescript typespec/tsp-output/@typespec/openapi3/openapi.yaml -o ./client/src/types/types.ts``
+````
+npx openapi-typescript ./typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.AdminService.yaml -o ./client/src/types/adminServiceTypes.ts 
+ 
+npx openapi-typescript ./typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.AuthService.yaml -o ./client/src/types/authServiceTypes.ts
+
+npx openapi-typescript ./typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.CartService.yaml -o ./client/src/types/CartServiceTypes.ts
+
+npx openapi-typescript ./typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.OrdersService.yaml -o ./client/src/types/ordersServiceTypes.ts
+
+npx openapi-typescript ./typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.ProductsService.yaml -o ./client/src/types/productsServiceTypes.ts
+
+npx openapi-typescript ./typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.SellerService.yaml -o ./client/src/types/sellerServiceTypes.ts
+
+npx openapi-typescript ./typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.UsersService.yaml -o ./client/src/types/usersServiceTypes.ts
+
+npx openapi-typescript ./typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.WishlistService.yaml -o ./client/src/types/wishlistServiceTypes.ts
+
+````
 
 2. Import types in React project:
 
