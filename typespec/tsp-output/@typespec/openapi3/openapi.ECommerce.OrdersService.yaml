@@ -1,0 +1,374 @@
+openapi: 3.0.0
+info:
+  title: Orders Service
+  version: 0.0.0
+tags: []
+paths:
+  /api/orders/:
+    get:
+      operationId: getOrders
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderOverviewResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /api/orders/items/{order_id}:
+    get:
+      operationId: getOrderById
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailsResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /api/orders/items/{order_id}/cancel:
+    patch:
+      operationId: cancelOrder
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelOrderResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /api/orders/items/{order_id}/update:
+    patch:
+      operationId: updateOrder
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateOrderResponse'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestError'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderRequest'
+components:
+  schemas:
+    CancelOrderResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+    DateTimeKnownEncoding:
+      type: string
+      enum:
+        - rfc3339
+        - rfc7231
+        - unixTimestamp
+      description: Known encoding to use on utcDateTime or offsetDateTime
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    InternalServerError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: number
+          enum:
+            - 500
+        message:
+          type: string
+          enum:
+            - Something went wrong. Try again later
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+    InvalidRequestError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: number
+          enum:
+            - 400
+        message:
+          type: string
+          enum:
+            - Invalid Request
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+    NotFoundError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: number
+          enum:
+            - 404
+        message:
+          type: string
+          enum:
+            - Not Found
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+    OrderDetailsResponse:
+      type: object
+      required:
+        - orderDestination
+        - shippingRate
+        - transactionId
+        - itemes
+      properties:
+        orderDestination:
+          type: string
+        shippingRate:
+          type: number
+        transactionId:
+          type: string
+        itemes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderedItemModel'
+      allOf:
+        - $ref: '#/components/schemas/OrderOverviewResponse'
+    OrderOverviewResponse:
+      type: object
+      required:
+        - orderId
+        - orderStatus
+        - orderPrice
+        - createdAt
+      properties:
+        orderId:
+          type: integer
+          format: int64
+        orderStatus:
+          type: string
+        orderPrice:
+          type: number
+        createdAt:
+          $ref: '#/components/schemas/DateTimeKnownEncoding'
+    OrderedItemModel:
+      type: object
+      required:
+        - orderedQuantity
+      properties:
+        orderedQuantity:
+          type: integer
+          format: int16
+      allOf:
+        - $ref: '#/components/schemas/ProductOverviewResponse'
+    ProductDetailsResponse:
+      type: object
+      required:
+        - stockQuantity
+      properties:
+        stockQuantity:
+          type: integer
+          format: int32
+        productDescription:
+          type: string
+        productMaterial:
+          type: string
+        productWeight:
+          type: number
+        productWidth:
+          type: number
+        productLenght:
+          type: number
+        productHeight:
+          type: number
+      allOf:
+        - $ref: '#/components/schemas/ProductOverviewResponse'
+    ProductOverviewResponse:
+      type: object
+      required:
+        - productId
+        - productName
+        - productPrice
+        - productCategory
+        - productAttachements
+        - sellerUsername
+        - rating
+      properties:
+        productId:
+          type: integer
+          format: int64
+        productName:
+          type: string
+        productPrice:
+          type: number
+        productCategory:
+          type: string
+        productAttachements:
+          type: array
+          items:
+            type: string
+        sellerUsername:
+          type: string
+        rating:
+          $ref: '#/components/schemas/ProductRatingResponse'
+    ProductRatingResponse:
+      type: object
+      required:
+        - ratedTimes
+        - averageRating
+      properties:
+        ratedTimes:
+          type: integer
+          format: int32
+        averageRating:
+          type: number
+    UnauthorizedError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: number
+          enum:
+            - 401
+        message:
+          type: string
+          enum:
+            - Unauthorized
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+    UpdateOrderRequest:
+      type: object
+      properties:
+        newStatus:
+          type: string
+    UpdateOrderResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
