@@ -1,4 +1,4 @@
-module github.com/zakharii/e-commerce/api
+module github.com/Zakharii-Husar/e-commerce/api
 
 go 1.22.2
 
