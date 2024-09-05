@@ -121,7 +121,7 @@ namespace ECommerce.ProductsService {
     };
 
   @delete
-  @route("/{product_id}attachement/{attachement_id}") op deleteProductAttachmentById(@path product_id: string, @path attachement_id: string):  
+  @route("/{product_id}/attachement/{attachement_id}") op deleteProductAttachmentById(@path product_id: string, @path attachement_id: string):  
   {
     @statusCode statusCode: 204;
   } | 

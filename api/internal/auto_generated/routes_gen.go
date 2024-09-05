@@ -77,6 +77,9 @@ type ServerInterface interface {
 	// (POST /api/products/{product_id}/attachement)
 	UploadProductAttachment(c *gin.Context, productId string)
 
+	// (DELETE /api/products/{product_id}/attachement/{attachement_id})
+	DeleteProductAttachmentById(c *gin.Context, productId string, attachementId string)
+
 	// (GET /api/products/{product_id}/attachement/{attachement_id})
 	GetProductAttachmentById(c *gin.Context, productId string, attachementId string)
 
@@ -97,9 +100,6 @@ type ServerInterface interface {
 
 	// (POST /api/products/{product_id}/reviews/{review_id}/respond)
 	RespondToReview(c *gin.Context, productId string, reviewId string)
-
-	// (DELETE /api/products/{product_id}attachement/{attachement_id})
-	DeleteProductAttachmentById(c *gin.Context, productId string, attachementId string)
 
 	// (GET /api/sellers/inventory)
 	GetInventory(c *gin.Context)
@@ -543,6 +543,39 @@ func (siw *ServerInterfaceWrapper) UploadProductAttachment(c *gin.Context) {
 	siw.Handler.UploadProductAttachment(c, productId)
 }
 
+// DeleteProductAttachmentById operation middleware
+func (siw *ServerInterfaceWrapper) DeleteProductAttachmentById(c *gin.Context) {
+
+	var err error
+
+	// ------------- Path parameter "product_id" -------------
+	var productId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "product_id", c.Param("product_id"), &productId, runtime.BindStyledParameterOptions{Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter product_id: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	// ------------- Path parameter "attachement_id" -------------
+	var attachementId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "attachement_id", c.Param("attachement_id"), &attachementId, runtime.BindStyledParameterOptions{Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter attachement_id: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.DeleteProductAttachmentById(c, productId, attachementId)
+}
+
 // GetProductAttachmentById operation middleware
 func (siw *ServerInterfaceWrapper) GetProductAttachmentById(c *gin.Context) {
 
@@ -736,39 +769,6 @@ func (siw *ServerInterfaceWrapper) RespondToReview(c *gin.Context) {
 	}
 
 	siw.Handler.RespondToReview(c, productId, reviewId)
-}
-
-// DeleteProductAttachmentById operation middleware
-func (siw *ServerInterfaceWrapper) DeleteProductAttachmentById(c *gin.Context) {
-
-	var err error
-
-	// ------------- Path parameter "product_id" -------------
-	var productId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "product_id", c.Param("product_id"), &productId, runtime.BindStyledParameterOptions{Explode: false, Required: true})
-	if err != nil {
-		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter product_id: %w", err), http.StatusBadRequest)
-		return
-	}
-
-	// ------------- Path parameter "attachement_id" -------------
-	var attachementId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "attachement_id", c.Param("attachement_id"), &attachementId, runtime.BindStyledParameterOptions{Explode: false, Required: true})
-	if err != nil {
-		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter attachement_id: %w", err), http.StatusBadRequest)
-		return
-	}
-
-	for _, middleware := range siw.HandlerMiddlewares {
-		middleware(c)
-		if c.IsAborted() {
-			return
-		}
-	}
-
-	siw.Handler.DeleteProductAttachmentById(c, productId, attachementId)
 }
 
 // GetInventory operation middleware
@@ -1011,6 +1011,7 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 	router.GET(options.BaseURL+"/api/products/:product_id", wrapper.GetProductById)
 	router.PUT(options.BaseURL+"/api/products/:product_id", wrapper.UpdateProductById)
 	router.POST(options.BaseURL+"/api/products/:product_id/attachement", wrapper.UploadProductAttachment)
+	router.DELETE(options.BaseURL+"/api/products/:product_id/attachement/:attachement_id", wrapper.DeleteProductAttachmentById)
 	router.GET(options.BaseURL+"/api/products/:product_id/attachement/:attachement_id", wrapper.GetProductAttachmentById)
 	router.GET(options.BaseURL+"/api/products/:product_id/questions", wrapper.GetProductQuestions)
 	router.POST(options.BaseURL+"/api/products/:product_id/questions", wrapper.PostProductQuestion)
@@ -1018,7 +1019,6 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 	router.GET(options.BaseURL+"/api/products/:product_id/reviews", wrapper.GetProductReviews)
 	router.POST(options.BaseURL+"/api/products/:product_id/reviews", wrapper.PostProductReview)
 	router.POST(options.BaseURL+"/api/products/:product_id/reviews/:review_id/respond", wrapper.RespondToReview)
-	router.DELETE(options.BaseURL+"/api/products/:product_idattachement/:attachement_id", wrapper.DeleteProductAttachmentById)
 	router.GET(options.BaseURL+"/api/sellers/inventory", wrapper.GetInventory)
 	router.GET(options.BaseURL+"/api/users/", wrapper.GetUsers)
 	router.GET(options.BaseURL+"/api/users/search", wrapper.SearchUsers)
