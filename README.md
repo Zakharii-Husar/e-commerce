@@ -39,9 +39,11 @@
 
 1. Run the TypeSpec compiler to compile TypeSpec files and generate the OpenAPI schema:
 
-``npx tsp compile .``
+``npx tsp compile ./typespec``
+
 
 ### Generating TypeScript types with [openapi-typescript](https://www.npmjs.com/package/openapi-typescript)
+
 
 1. Provide yaml schemas and output files and generate the files with TS types(run the following command from the project root directory):
 
@@ -73,3 +75,13 @@ type ProductDetailsType = components["schemas"]["ProductDetailsResponse"];
 type EndpointParams = paths["/api/products/{product_id}"]["parameters"];
 
 ````
+
+### Generating API boilerplate code with [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)
+
+1. Navigate to "api" directory:
+
+``cd api``
+
+2. Generate the code:
+
+``go generate .``
