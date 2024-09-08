@@ -85,3 +85,13 @@ type EndpointParams = paths["/api/products/{product_id}"]["parameters"];
 2. Generate the code:
 
 ``go generate .``
+
+### Creating  [PostgreSQL](https://www.postgresql.org/) database
+
+1. Create a New Database:
+
+``sudo -u postgres createdb e-commerce``
+
+2. Load the SQL Schema into the Database:
+
+``psql -U postgres -d e-commerce -f ./api/internal/data/init_db.sql``

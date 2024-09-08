@@ -3,14 +3,12 @@ package main
 import (
 	"github.com/Zakharii-Husar/e-commerce/api/internal/admin"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/auth"
-	"github.com/Zakharii-Husar/e-commerce/api/internal/auto_generated"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/cart"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/orders"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/products"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/sellers"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/users"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/wishlist"
-	"github.com/gin-gonic/gin"
 )
 
 // Generate types (models)
@@ -31,20 +29,30 @@ type CombinedImpl struct {
 }
 
 func main() {
-	router := gin.Default()
 
-	combinedImpl := &CombinedImpl{
-		AdminImpl:    *admin.GetAdminImpl(),
-		AuthImpl:     *auth.GetAuthImpl(),
-		CartImpl:     *cart.GetCartImpl(),
-		OrdersImpl:   *orders.GetOrdersImpl(),
-		ProductsImpl: *products.GetProductsImpl(),
-		SellersImpl:  *sellers.GetSellersImpl(),
-		UsersImpl:    *users.GetUsersImpl(),
-		WishlistImpl: *wishlist.GetWishlistImpl(),
-	}
+	/*
+		Host:     "localhost",
+		Port:     5432,
+		Username: "e_commerce_user",
+		Password: "e_commerce_password",
+		Database: "e_commerce",
+		Type:     2,
+	*/
 
-	auto_generated.RegisterHandlers(router, combinedImpl)
+	// router := gin.Default()
 
-	router.Run(":8080")
+	// combinedImpl := &CombinedImpl{
+	// 	AdminImpl:    *admin.GetAdminImpl(),
+	// 	AuthImpl:     *auth.GetAuthImpl(),
+	// 	CartImpl:     *cart.GetCartImpl(),
+	// 	OrdersImpl:   *orders.GetOrdersImpl(),
+	// 	ProductsImpl: *products.GetProductsImpl(),
+	// 	SellersImpl:  *sellers.GetSellersImpl(),
+	// 	UsersImpl:    *users.GetUsersImpl(),
+	// 	WishlistImpl: *wishlist.GetWishlistImpl(),
+	// }
+
+	// auto_generated.RegisterHandlers(router, combinedImpl)
+
+	// router.Run(":8080")
 }

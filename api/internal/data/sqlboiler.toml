@@ -1,0 +1,14 @@
+
+output   = "my_models"
+wipe     = true
+no-tests = true
+add-enum-types = true
+
+[psql]
+  dbname = "e_commerce"
+  host   = "localhost"
+  port   = 5432
+  user   = "e_commerce_user"
+  pass   = "e_commerce_password"
+  schema = "public"
+  blacklist = ["migrations", "other"]
