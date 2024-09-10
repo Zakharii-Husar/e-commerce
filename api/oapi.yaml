@@ -1,0 +1,7 @@
+# oapi-codegen.yaml
+package: codegen
+output: ./generated/codegen
+generate:
+  - types
+  - gin
+input: /absolute/path/to/your/typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml

@@ -11,11 +11,14 @@ import (
 	"github.com/Zakharii-Husar/e-commerce/api/internal/wishlist"
 )
 
-// Generate types (models)
-//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen -o ./internal/auto_generated/models_gen.go --package=auto_generated --generate=types ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
+//Generate ORM from SQL Schema:
+//go:generate sqlboiler psql -c ./config/sqlboiler.toml
 
-// Generate server routes for Gin
-//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen -o ./internal/auto_generated/routes_gen.go --package=auto_generated --generate=gin ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
+// Generate types (models)
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/codegen_types.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
+
+// Generate types (models)
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/codegen_gin_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
 
 type CombinedImpl struct {
 	admin.AdminImpl

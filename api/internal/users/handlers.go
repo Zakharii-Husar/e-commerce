@@ -2,12 +2,12 @@
 package users
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/internal/auto_generated"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/codegen"
 	"github.com/gin-gonic/gin"
 )
 
 type UsersHandler struct {
-	Handler auto_generated.ServerInterface
+	Handler codegen.ServerInterface
 }
 
 func (h *UsersHandler) GetUsers(c *gin.Context) {
@@ -16,7 +16,7 @@ func (h *UsersHandler) GetUsers(c *gin.Context) {
 
 func (h *UsersHandler) SearchUsers(c *gin.Context) {
 	// Extract query parameters into SearchUsersParams struct
-	params := auto_generated.SearchUsersParams{
+	params := codegen.SearchUsersParams{
 		// Assuming there's a "query" parameter in the search query.
 		Query: c.Query("query"),
 	}
