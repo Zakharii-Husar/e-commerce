@@ -27,7 +27,7 @@
 
 7. Initialize the database (you must be in the project root directory to run the following command):
 
-`` psql -h localhost -U postgres -d ecommerce -f ./api/data/init_db.sql``
+`` psql -h localhost -U postgres -d ecommerce -f ./api/db/schemas/init_db.sql``
 
 ## Typespec
 
@@ -86,12 +86,17 @@ type EndpointParams = paths["/api/products/{product_id}"]["parameters"];
 
 ``go generate .``
 
-### Creating  [PostgreSQL](https://www.postgresql.org/) database
+### Creating ORMs with [SQLBoiler](https://github.com/volatiletech/sqlboiler) database
 
-1. Create a New Database:
+1. Install SQLBoiler:
 
-``sudo -u postgres createdb e-commerce``
+````
+go install github.com/volatiletech/sqlboiler/v4@latest
+go install github.com/volatiletech/sqlboiler/v4/drivers/sqlboiler-psql@latest
+````
 
-2. Load the SQL Schema into the Database:
+2. Adjust sqlboiler.toml config file in accordance with your database.
 
-``psql -U postgres -d e-commerce -f ./api/internal/data/init_db.sql``
+3. Generate ORM models:
+
+``go generate .``

@@ -1,14 +1,17 @@
 package main
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/internal/admin"
-	"github.com/Zakharii-Husar/e-commerce/api/internal/auth"
-	"github.com/Zakharii-Husar/e-commerce/api/internal/cart"
-	"github.com/Zakharii-Husar/e-commerce/api/internal/orders"
-	"github.com/Zakharii-Husar/e-commerce/api/internal/products"
-	"github.com/Zakharii-Husar/e-commerce/api/internal/sellers"
-	"github.com/Zakharii-Husar/e-commerce/api/internal/users"
-	"github.com/Zakharii-Husar/e-commerce/api/internal/wishlist"
+	"github.com/Zakharii-Husar/e-commerce/api/db/database"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
+	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/admin"
+	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/auth"
+	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/cart"
+	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/orders"
+	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/products"
+	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/sellers"
+	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/users"
+	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/wishlist"
+	"github.com/gin-gonic/gin"
 )
 
 //Generate ORM from SQL Schema:
@@ -33,6 +36,7 @@ type CombinedImpl struct {
 
 func main() {
 
+	database.InitDB()
 	/*
 		Host:     "localhost",
 		Port:     5432,
@@ -42,20 +46,20 @@ func main() {
 		Type:     2,
 	*/
 
-	// router := gin.Default()
+	router := gin.Default()
 
-	// combinedImpl := &CombinedImpl{
-	// 	AdminImpl:    *admin.GetAdminImpl(),
-	// 	AuthImpl:     *auth.GetAuthImpl(),
-	// 	CartImpl:     *cart.GetCartImpl(),
-	// 	OrdersImpl:   *orders.GetOrdersImpl(),
-	// 	ProductsImpl: *products.GetProductsImpl(),
-	// 	SellersImpl:  *sellers.GetSellersImpl(),
-	// 	UsersImpl:    *users.GetUsersImpl(),
-	// 	WishlistImpl: *wishlist.GetWishlistImpl(),
-	// }
+	combinedImpl := &CombinedImpl{
+		AdminImpl:    *admin.GetAdminImpl(),
+		AuthImpl:     *auth.GetAuthImpl(),
+		CartImpl:     *cart.GetCartImpl(),
+		OrdersImpl:   *orders.GetOrdersImpl(),
+		ProductsImpl: *products.GetProductsImpl(),
+		SellersImpl:  *sellers.GetSellersImpl(),
+		UsersImpl:    *users.GetUsersImpl(),
+		WishlistImpl: *wishlist.GetWishlistImpl(),
+	}
 
-	// auto_generated.RegisterHandlers(router, combinedImpl)
+	oapi.RegisterHandlers(router, combinedImpl)
 
-	// router.Run(":8080")
+	router.Run(":8080")
 }
