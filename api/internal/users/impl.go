@@ -4,7 +4,7 @@ package users
 import (
 	"net/http"
 
-	"github.com/Zakharii-Husar/e-commerce/api/generated/codegen"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,7 +20,7 @@ func (u *UsersImpl) GetUsers(ctx *gin.Context) {
 	ctx.JSON(http.StatusNotImplemented, gin.H{"error": "Get users not implemented yet"})
 }
 
-func (u *UsersImpl) SearchUsers(c *gin.Context, params codegen.SearchUsersParams) {
+func (u *UsersImpl) SearchUsers(c *gin.Context, params oapi.SearchUsersParams) {
 	// Implement the actual search logic here, for now just return a not implemented response.
 	c.JSON(http.StatusNotImplemented, gin.H{"error": "Search users not implemented yet"})
 }

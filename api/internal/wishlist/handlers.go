@@ -1,12 +1,12 @@
 package wishlist
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/generated/codegen"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
 	"github.com/gin-gonic/gin"
 )
 
 type WishlistHandler struct {
-	Handler codegen.ServerInterface
+	Handler oapi.ServerInterface
 }
 
 func (h *WishlistHandler) GetWishlistItems(c *gin.Context) {

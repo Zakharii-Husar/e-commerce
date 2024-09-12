@@ -1,12 +1,12 @@
 package auth
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/generated/codegen"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
 	"github.com/gin-gonic/gin"
 )
 
 type AuthHandler struct {
-	Handler codegen.ServerInterface
+	Handler oapi.ServerInterface
 }
 
 func (h *AuthHandler) RecoverPassword(c *gin.Context) {

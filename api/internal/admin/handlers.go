@@ -1,12 +1,12 @@
 package admin
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/generated/codegen"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
 	"github.com/gin-gonic/gin"
 )
 
 type AdminHandler struct {
-	Handler codegen.ServerInterface
+	Handler oapi.ServerInterface
 }
 
 func (h *AdminHandler) SuspendProduct(c *gin.Context, productId string) {

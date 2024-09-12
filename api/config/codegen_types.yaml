@@ -1,6 +1,6 @@
 # ../../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
-package: codgen
+package: oapi
 generate:
   gin-server: false
   models: true
-output: ./generated/codegen/codegen_types.go
+output: ./generated/oapi/codegen_types.go

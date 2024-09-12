@@ -2,12 +2,12 @@
 package orders
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/generated/codegen"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
 	"github.com/gin-gonic/gin"
 )
 
 type OrdersHandler struct {
-	Handler codegen.ServerInterface
+	Handler oapi.ServerInterface
 }
 
 func (h *OrdersHandler) GetOrders(c *gin.Context) {
