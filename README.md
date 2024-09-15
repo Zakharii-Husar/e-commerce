@@ -1,5 +1,7 @@
 # e-commerce
 
+The app is using [Monolith first](https://www.martinfowler.com/bliki/MonolithFirst.html) approach but with ability to scale up to microservices  thanks to [package by feature](https://medium.com/sahibinden-technology/package-by-layer-vs-package-by-feature-7e89cde2ae3a#:~:text=%E2%80%94%20Package%20by%20Feature%20reduces%20the,Package%20By%20Layer%20is%20monolithic.) design. Each package is designed according to [service-repository design pattern](https://medium.com/@ankitpal181/service-repository-pattern-802540254019#:~:text=A%20service%2Drepository%20pattern%20is,layer%20and%20a%20repository%20layer).
+
 ## DB Initialization
 
 1. Install PostgreSQL on your machine.

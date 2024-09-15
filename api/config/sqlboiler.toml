@@ -1,5 +1,5 @@
 
-output   = "./generated/sqlboiler/"
+output   = "./generated/sqlboiler/models"
 wipe     = true
 no-tests = true
 add-enum-types = true

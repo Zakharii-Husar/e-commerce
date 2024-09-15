@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	models "github.com/Zakharii-Husar/e-commerce/api/generated/sqlboiler"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/sqlboiler/models"
 )
 
 // GetUserByID fetches a user from the database by their ID.
