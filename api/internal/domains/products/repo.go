@@ -3,22 +3,31 @@ package products
 import (
 	"context"
 	"database/sql"
-	"fmt"
+	"log"
 
+	"github.com/Zakharii-Husar/e-commerce/api/db/database"
 	"github.com/Zakharii-Husar/e-commerce/api/generated/sqlboiler/models"
 )
 
-// GetUserByID fetches a user from the database by their ID.
-func GetUserByID(ctx context.Context, db *sql.DB, id int64) (*models.User, error) {
-	user, err := models.FindUser(ctx, db, id) // SQLBoiler method to find by primary key
+type ProductRepository struct {
+	db *sql.DB // Database connection
+}
+
+// Constructor for ProductRepository
+func NewProductRepository() *ProductRepository {
+	return &ProductRepository{db: database.DB} // Inject the global DB connection
+}
+
+// Method to get a product by ID
+func (r *ProductRepository) GetProductByID(ctx context.Context, id int64) (*models.Product, error) {
+	product, err := models.FindProduct(ctx, r.db, id) // SQLBoiler method
 	if err != nil {
 		if err == sql.ErrNoRows {
-			fmt.Println("Error: 0 rows found")
-			return nil, nil // User not found
+			log.Println("Product not found")
+			return nil, nil
 		}
-		fmt.Println("Some other error")
+		log.Println("Error finding product:", err)
 		return nil, err
 	}
-	fmt.Println("All good. User found")
-	return user, nil
+	return product, nil
 }

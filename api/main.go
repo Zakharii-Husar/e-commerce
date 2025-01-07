@@ -14,14 +14,36 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//Generate ORM from SQL Schema:
+// Generate ORM from SQL Schema:
 //go:generate sqlboiler psql -c ./config/sqlboiler.toml
 
 // Generate types (models)
-//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/codegen_types.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/models.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
 
-// Generate types (models)
-//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/codegen_gin_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
+// Generate server interfaces
+//go:generate mkdir -p ./generated/oapi/admin_server
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/admin_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.AdminService.yaml
+
+//go:generate mkdir -p ./generated/oapi/auth_server
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/auth_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.AuthService.yaml
+
+//go:generate mkdir -p ./generated/oapi/cart_server
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/cart_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.CartService.yaml
+
+//go:generate mkdir -p ./generated/oapi/orders_server
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/orders_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.OrdersService.yaml
+
+//go:generate mkdir -p ./generated/oapi/products_server
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/products_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.ProductsService.yaml
+
+//go:generate mkdir -p ./generated/oapi/seller_server
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/seller_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.SellerService.yaml
+
+//go:generate mkdir -p ./generated/oapi/users_server
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/users_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.UsersService.yaml
+
+//go:generate mkdir -p ./generated/oapi/wishlist_server
+//go:generate go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen --config=./config/wishlist_server.yaml ../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.WishlistService.yaml
 
 type CombinedImpl struct {
 	admin.AdminImpl
@@ -35,16 +57,7 @@ type CombinedImpl struct {
 }
 
 func main() {
-
 	database.InitDB()
-	/*
-		Host:     "localhost",
-		Port:     5432,
-		Username: "e_commerce_user",
-		Password: "e_commerce_password",
-		Database: "e_commerce",
-		Type:     2,
-	*/
 
 	router := gin.Default()
 

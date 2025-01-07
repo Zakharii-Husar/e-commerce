@@ -2,17 +2,44 @@ package products
 
 import (
 	"net/http"
+	"strconv"
 
-	"github.com/Zakharii-Husar/e-commerce/api/db/database"
 	"github.com/gin-gonic/gin"
 )
 
 // ProductsImpl implements the ServerInterface.
-type ProductsImpl struct{}
+type ProductsImpl struct {
+	service *ProductService // Inject the service into the handler
+}
 
-// GetProductsImpl creates a new ProductsImpl instance.
+// GetProductsImpl creates a new ProductsImpl instance with the service.
 func GetProductsImpl() *ProductsImpl {
-	return &ProductsImpl{}
+	return &ProductsImpl{
+		service: NewProductService(), // Initialize the service when the handler is created
+	}
+}
+
+// GetProductById handles the GET request for a product by ID.
+func (p *ProductsImpl) GetProductById(ctx *gin.Context, productId string) {
+	// Convert productId to int64
+	id, err := strconv.ParseInt(productId, 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
+		return
+	}
+
+	// Call the service layer to get the product by ID
+	product, err := p.service.GetProductById(ctx, id)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error fetching product"})
+		return
+	}
+	if product == nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, product)
 }
 
 func (p *ProductsImpl) GetProducts(ctx *gin.Context) {
@@ -25,11 +52,6 @@ func (p *ProductsImpl) CreateProduct(ctx *gin.Context) {
 
 func (p *ProductsImpl) DeleteProductById(ctx *gin.Context, productId string) {
 	ctx.JSON(http.StatusNotImplemented, gin.H{"error": "Delete product not implemented yet"})
-}
-
-func (p *ProductsImpl) GetProductById(ctx *gin.Context, productId string) {
-	GetUserByID(ctx, database.DB, 2)
-	//ctx.JSON(http.StatusNotImplemented, gin.H{"error": "Get product by ID not implemented yet"})
 }
 
 func (p *ProductsImpl) UpdateProductById(ctx *gin.Context, productId string) {
