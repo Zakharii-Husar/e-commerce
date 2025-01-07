@@ -1,0 +1,6 @@
+# ../../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.AdminService.yaml
+package: admin_server
+generate:
+  gin-server: true
+  models: false
+output: ./generated/oapi/admin_server/admin_server.go

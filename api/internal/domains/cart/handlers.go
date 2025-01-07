@@ -1,12 +1,12 @@
 package cart
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/cart_server"
 	"github.com/gin-gonic/gin"
 )
 
 type CartHandler struct {
-	Handler oapi.ServerInterface
+	Handler cart_server.ServerInterface
 }
 
 func (h *CartHandler) GetCartItems(c *gin.Context) {

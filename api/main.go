@@ -2,7 +2,14 @@ package main
 
 import (
 	"github.com/Zakharii-Husar/e-commerce/api/db/database"
-	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/admin_server"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/auth_server"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/cart_server"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/orders_server"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/products_server"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/seller_server"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/users_server"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/wishlist_server"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/admin"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/auth"
 	"github.com/Zakharii-Husar/e-commerce/api/internal/domains/cart"
@@ -72,7 +79,14 @@ func main() {
 		WishlistImpl: *wishlist.GetWishlistImpl(),
 	}
 
-	oapi.RegisterHandlers(router, combinedImpl)
+	admin_server.RegisterHandlers(router, &combinedImpl.AdminImpl)
+	users_server.RegisterHandlers(router, &combinedImpl.UsersImpl)
+	auth_server.RegisterHandlers(router, &combinedImpl.AuthImpl)
+	cart_server.RegisterHandlers(router, &combinedImpl.CartImpl)
+	orders_server.RegisterHandlers(router, &combinedImpl.OrdersImpl)
+	products_server.RegisterHandlers(router, &combinedImpl.ProductsImpl)
+	seller_server.RegisterHandlers(router, &combinedImpl.SellersImpl)
+	wishlist_server.RegisterHandlers(router, &combinedImpl.WishlistImpl)
 
 	router.Run(":8080")
 }

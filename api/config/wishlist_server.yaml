@@ -1,0 +1,6 @@
+# ../../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.WishlistService.yaml
+package: wishlist_server
+generate:
+  gin-server: true
+  models: false
+output: ./generated/oapi/wishlist_server/wishlist_server.go

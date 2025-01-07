@@ -43,7 +43,28 @@ for following reasons:
 - Documentation is part of the process
 - Easier to spot potential issues in design
 
-### Database Initialization
+### Install PostgreSQL as a Docker container
+
+1. Install Docker on your machine.
+
+2. Install PostgreSQL as a Docker container(from docker hub).
+
+3. Launch the container:
+
+```docker run --name some-postgres \
+  -e POSTGRES_USER=e_commerce_user \
+  -e POSTGRES_PASSWORD=e_commerce_password \
+  -e POSTGRES_DB=e_commerce \
+  -p 5432:5432 \
+  -v pgdata:/var/lib/postgresql/data \
+  --restart unless-stopped \
+  -d postgres
+```
+
+4. Initialize the database:
+   ``psql -h localhost -U e_commerce_user -d e_commerce -f ./api/db/schemas/init_db.sql``
+
+### Install PostgreSQL on your machine (Alternative)
 1. Install PostgreSQL on your machine.
 
 2.  Log in to PostgreSQL as a superuser: 

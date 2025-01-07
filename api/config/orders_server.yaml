@@ -1,0 +1,6 @@
+# ../../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.OrdersService.yaml
+package: orders_server
+generate:
+  gin-server: true
+  models: false
+output: ./generated/oapi/orders_server/orders_server.go

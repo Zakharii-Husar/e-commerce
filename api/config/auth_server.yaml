@@ -1,0 +1,6 @@
+# ../../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.AuthService.yaml
+package: auth_server
+generate:
+  gin-server: true
+  models: false
+output: ./generated/oapi/auth_server/auth_server.go

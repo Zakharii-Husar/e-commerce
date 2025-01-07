@@ -2,12 +2,13 @@
 package users
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/models"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/users_server"
 	"github.com/gin-gonic/gin"
 )
 
 type UsersHandler struct {
-	Handler oapi.ServerInterface
+	Handler users_server.ServerInterface
 }
 
 func (h *UsersHandler) GetUsers(c *gin.Context) {
@@ -16,7 +17,7 @@ func (h *UsersHandler) GetUsers(c *gin.Context) {
 
 func (h *UsersHandler) SearchUsers(c *gin.Context) {
 	// Extract query parameters into SearchUsersParams struct
-	params := oapi.SearchUsersParams{
+	params := models.SearchUsersParams{
 		// Assuming there's a "query" parameter in the search query.
 		Query: c.Query("query"),
 	}

@@ -1,12 +1,12 @@
 package products
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/products_server"
 	"github.com/gin-gonic/gin"
 )
 
 type ProductsHandler struct {
-	Handler oapi.ServerInterface
+	Handler products_server.ServerInterface
 }
 
 func (h *ProductsHandler) GetProducts(c *gin.Context) {

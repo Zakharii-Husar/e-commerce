@@ -1,0 +1,6 @@
+# ../../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.CartService.yaml
+package: cart_server
+generate:
+  gin-server: true
+  models: false
+output: ./generated/oapi/cart_server/cart_server.go

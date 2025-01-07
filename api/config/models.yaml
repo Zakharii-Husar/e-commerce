@@ -1,0 +1,6 @@
+# ../../typespec/tsp-output/@typespec/openapi3/openapi.ECommerce.yaml
+package: models
+generate:
+  gin-server: false
+  models: true
+output: ./generated/oapi/models/models.go

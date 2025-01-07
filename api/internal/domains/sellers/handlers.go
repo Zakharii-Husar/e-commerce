@@ -2,12 +2,12 @@
 package sellers
 
 import (
-	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi"
+	"github.com/Zakharii-Husar/e-commerce/api/generated/oapi/seller_server"
 	"github.com/gin-gonic/gin"
 )
 
 type SellersHandler struct {
-	Handler oapi.ServerInterface
+	Handler seller_server.ServerInterface
 }
 
 func (h *SellersHandler) GetInventory(c *gin.Context) {
