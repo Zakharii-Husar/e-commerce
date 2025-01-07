@@ -1,9 +1,49 @@
 # e-commerce
 
+## Development workflow
+
+graph TD
+    A[1. DDD - Domain Models in TypeSpec] -->|Define API| B[2. Generate OpenAPI]
+    A -->|Inform| C[3. Visual DB Design]
+    B -->|Generate| D[4. API Code Generation]
+    C -->|Generate| E[5. SQL Schema]
+    E -->|Generate| F[6. ORM Models]
+    
+    D --> G[TypeScript Models/Client]
+    D --> H[Go Server Models]
+
 The app is using [Monolith first](https://www.martinfowler.com/bliki/MonolithFirst.html) approach but with ability to scale up to microservices  thanks to [package by feature](https://medium.com/sahibinden-technology/package-by-layer-vs-package-by-feature-7e89cde2ae3a#:~:text=%E2%80%94%20Package%20by%20Feature%20reduces%20the,Package%20By%20Layer%20is%20monolithic.) design. Each package is designed according to [service-repository design pattern](https://medium.com/@ankitpal181/service-repository-pattern-802540254019#:~:text=A%20service%2Drepository%20pattern%20is,layer%20and%20a%20repository%20layer).
 
-## DB Initialization
+## Database Setup
 
+### DB Development Flow
+I decided to use one way database development maintenance flow:
+
+**Visual(dbdiagram.io) → SQL Schema → ORM**
+
+for following reasons:
+
+1. Single Source of Truth
+ - Database design is always visually documented
+ - Easier for new team members to understand
+ - Easier to discuss changes with stakeholders
+  
+2. Enforced Process
+- No accidental schema changes
+- All changes are documented
+- Forces you to think about design first
+
+3. Better Change Management
+- Each change requires a migration
+- Changes are versioned
+- Easy rollback if needed
+
+4. Maintainability
+- Visual representation stays up to date
+- Documentation is part of the process
+- Easier to spot potential issues in design
+
+### Database Initialization
 1. Install PostgreSQL on your machine.
 
 2.  Log in to PostgreSQL as a superuser: 
